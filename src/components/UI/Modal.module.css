@@ -1,0 +1,31 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 20;
+}
+.modal {
+  position: fixed;
+  left: 10%;
+  right: 10%;
+  z-index: 30;
+  display: block;
+  color: white;
+}
+@media (min-width: 35em) {
+  .modal {
+    top: 5em;
+    left: 20%;
+    right: 20%;
+  }
+}
+@media (min-width: 50em) {
+  .modal {
+    top: 10em;
+    left: 25%;
+    right: 25%;
+  }
+}

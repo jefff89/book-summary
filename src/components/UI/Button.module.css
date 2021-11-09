@@ -1,0 +1,19 @@
+.btn {
+  font: inherit;
+  border: 1px solid rgb(61, 24, 24);
+  /* background: rgb(61, 24, 24); */
+  background-color: rgb(19, 16, 19);
+  color: white;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+}
+
+.btn:hover,
+.btn:active {
+  background: tomato;
+  border-color: rgb(94, 40, 40);
+}
+
+.btn:focus {
+  outline: none;
+}

@@ -1,0 +1,14 @@
+.card {
+  background-color: rgb(61, 24, 24);
+  padding: 1em;
+}
+.form {
+  display: flex;
+  gap: 1em;
+  flex-direction: column;
+  align-items: center;
+}
+
+.invalidStates {
+  color: tomato;
+}

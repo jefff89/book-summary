@@ -1,0 +1,23 @@
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background-color: rgb(61, 24, 24);
+  color: white;
+}
+.header h2 {
+  padding-left: 1em;
+}
+
+@media (min-width: 35em) {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+@media (min-width: 50em) {
+  .header h2 {
+    padding-left: 2em;
+  }
+}

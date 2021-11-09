@@ -1,0 +1,37 @@
+.grid figure {
+  display: flex;
+  margin: 0;
+}
+.card {
+  width: 90%;
+  overflow: hidden;
+}
+.grid img {
+  width: 150px;
+  padding: 1em;
+}
+.button {
+  margin-left: 35%;
+}
+@media (min-width: 39em) {
+  .card {
+    width: 250px;
+  }
+  .grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .grid img {
+    width: 200px;
+    padding: 0;
+  }
+  .grid figure {
+    display: block;
+    padding: 1.5em;
+  }
+  .button {
+    margin: 0;
+    align-self: center;
+  }
+}
