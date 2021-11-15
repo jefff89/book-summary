@@ -9,6 +9,7 @@
   align-items: center;
 }
 
-.invalidStates {
+.error-text {
   color: tomato;
+  text-align: center;
 }

@@ -21,6 +21,11 @@
   border-radius: 0.3em;
   font-weight: bold;
 }
+.error-text {
+  color: tomato;
+  text-align: center;
+  padding-top: 1em;
+}
 
 .form-control textarea {
   width: 100%;
@@ -32,6 +37,7 @@
 }
 .form-control.invalid textarea {
   background-color: tomato;
+  border-color: #b40e0e;
 }
 
 @media (min-width: 50em) {

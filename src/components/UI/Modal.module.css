@@ -17,14 +17,14 @@
 }
 @media (min-width: 35em) {
   .modal {
-    top: 5em;
+    top: 10%;
     left: 20%;
     right: 20%;
   }
 }
 @media (min-width: 50em) {
   .modal {
-    top: 10em;
+    top: 15%;
     left: 25%;
     right: 25%;
   }

@@ -1,70 +1,78 @@
 import classes from "./Form.module.css";
 import Card from "../UI/card";
 import Button from "../UI/Button";
-import { useRef, useContext, useState } from "react";
+import { useContext } from "react";
 import FavContext from "../store/FavContext";
 import { useHistory } from "react-router";
 import Input from "../UI/Input";
+import useInput from "../../hooks/use-input";
 
+const notEmpty = (value) => value.trim() !== "";
 const Form = () => {
-  const [formIsValid, setFormIsValid] = useState(true);
+  const {
+    value: enteredName,
+    valueIsValid: enteredNameIsValid,
+    hasError: invalidName,
+    valueChangeHandler: nameChangeHandler,
+    valueBlurHandler: nameBlurHandler,
+    setTouch: enteredNameIsTouched,
+  } = useInput(notEmpty);
+
+  const {
+    value: enteredWriter,
+    valueIsValid: enteredWriterIsValid,
+    hasError: invalidWriter,
+    valueChangeHandler: writerChangeHandler,
+    valueBlurHandler: writerBlurHandler,
+    setTouch: enteredWriterIsTouched,
+  } = useInput(notEmpty);
+
+  const {
+    value: enteredImage,
+    valueIsValid: enteredImageIsValid,
+    hasError: invalidImage,
+    valueChangeHandler: imageChangeHandler,
+    valueBlurHandler: imageBlurHandler,
+    setTouch: enteredImageIsTouched,
+  } = useInput(notEmpty);
+
+  const {
+    value: enteredSummary,
+    valueIsValid: enteredSummaryIsValid,
+    hasError: invalidSummary,
+    valueChangeHandler: summaryChangeHandler,
+    valueBlurHandler: summaryBlurHandler,
+    setTouch: enteredSummaryIsTouched,
+  } = useInput(notEmpty);
+
+  let formIsValid = false;
+  if (
+    enteredNameIsValid &&
+    enteredWriterIsValid &&
+    enteredImageIsValid &&
+    enteredSummaryIsValid
+  ) {
+    formIsValid = true;
+  }
 
   const favCtx = useContext(FavContext);
   const history = useHistory();
 
-  const enteredName = useRef();
-  const enteredWriter = useRef();
-  const enteredImg = useRef();
-  const enteredSummary = useRef();
-
-  const ChangeHandler = (event) => {
-    if (event.target.value.trim() === 0) {
-      setFormIsValid(false);
-    } else {
-      setFormIsValid(true);
-    }
-  };
-
   const submitHandler = (event) => {
     event.preventDefault();
+    enteredNameIsTouched();
+    enteredWriterIsTouched();
+    enteredImageIsTouched();
+    enteredSummaryIsTouched();
+    if (!formIsValid) {
+      return;
+    }
     const values = {
-      name: enteredName.current.value,
-      writer: enteredWriter.current.value,
-      img: enteredImg.current.value,
-      summary: enteredSummary.current.value,
+      name: enteredName,
+      writer: enteredWriter,
+      img: enteredImage,
+      summary: enteredSummary,
     };
-
-    if (values.name.trim().length === 0) {
-      setFormIsValid(false);
-      enteredName.current.focus();
-      return;
-    } else {
-      setFormIsValid(true);
-    }
-
-    if (values.writer.trim().length === 0) {
-      setFormIsValid(false);
-      enteredWriter.current.focus();
-      return;
-    } else {
-      setFormIsValid(true);
-    }
-
-    if (values.img.trim().length === 0) {
-      setFormIsValid(false);
-      enteredImg.current.focus();
-      return;
-    } else {
-      setFormIsValid(true);
-    }
-
-    if (values.summary.trim().length === 0) {
-      setFormIsValid(false);
-      enteredSummary.current.focus();
-      return;
-    } else {
-      setFormIsValid(true);
-    }
 
     favCtx.addData({
       name: values.name,
@@ -74,60 +82,67 @@ const Form = () => {
       id: values.name,
     });
 
-    enteredName.current.value = "";
-    enteredWriter.current.value = "";
-    enteredImg.current.value = "";
-    enteredSummary.current.value = "";
     history.replace("/");
   };
 
   return (
     <Card className={classes.card}>
-      {!formIsValid && (
-        <h2
-          style={{ color: "tomato", textAlign: "center", paddingTop: "0.5em" }}
-        >
-          Fill Empty Input
-        </h2>
+      {invalidName && <p className={classes["error-text"]}>Enter Book Name</p>}
+      {invalidWriter && (
+        <p className={classes["error-text"]}>Enter Writer Name</p>
       )}
+      {invalidImage && <p className={classes["error-text"]}>Add Image Url</p>}
+      {invalidSummary && <p className={classes["error-text"]}>Add Summary</p>}
       <form className={classes.form} onSubmit={submitHandler}>
         <Input
           label="Book Name"
+          states={invalidName}
           inputs={{
             type: "text",
             id: "name",
-            onChange: ChangeHandler,
-            ref: enteredName,
+            onChange: nameChangeHandler,
+            value: enteredName,
+            onBlur: nameBlurHandler,
           }}
         />
 
         <Input
           label="Writer"
+          states={invalidWriter}
           inputs={{
             type: "text",
             id: "writer",
-            onChange: ChangeHandler,
-            ref: enteredWriter,
+            value: enteredWriter,
+
+            onChange: writerChangeHandler,
+            onBlur: writerBlurHandler,
           }}
         />
 
         <Input
           label="Image"
+          states={invalidImage}
           inputs={{
             type: "url",
             id: "image",
-            onChange: ChangeHandler,
-            ref: enteredImg,
+            value: enteredImage,
+            onChange: imageChangeHandler,
+            onBlur: imageBlurHandler,
           }}
         />
 
-        <div className={classes["form-control"]}>
+        <div
+          className={`${classes["form-control"]} ${
+            invalidSummary && classes.invalid
+          }`}
+        >
           <label htmlFor="summary">Add Summary</label>
           <textarea
             id="summary"
             rows="7"
-            ref={enteredSummary}
-            onChange={ChangeHandler}
+            value={enteredSummary}
+            onChange={summaryChangeHandler}
+            onBlur={summaryBlurHandler}
           ></textarea>
         </div>
         <Button type="submit">Add Summary</Button>
