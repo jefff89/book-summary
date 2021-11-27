@@ -3,7 +3,7 @@ import Card from "../UI/card";
 import Button from "../UI/Button";
 import { useContext } from "react";
 import FavContext from "../store/FavContext";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import Input from "../UI/Input";
 import useInput from "../../hooks/use-input";
 
@@ -56,7 +56,7 @@ const Form = () => {
   }
 
   const favCtx = useContext(FavContext);
-  const history = useHistory();
+  const history = useNavigate();
 
   const submitHandler = (event) => {
     event.preventDefault();

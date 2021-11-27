@@ -4,12 +4,6 @@ import { useState } from "react";
 
 const Nav = (props) => {
   const [toggleMenu, setToggleMenu] = useState(true);
-  // const wid = window.innerWidth < 560;
-  // useEffect(() => {
-  //   if (wid) {
-  //     setToggleMenu(false);
-  //   }
-  // }, [wid]);
 
   const toggleHandler = () => {
     if (!toggleMenu) {

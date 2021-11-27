@@ -21,22 +21,23 @@ const NavList = (props) => {
       clearTimeout(timer);
     };
   }, [totalFav]);
+
+  const activeStyle = ({ isActive }) => ({ color: isActive ? "tomato" : "" });
+
   return (
     <ul className={classes.menu}>
       <li>
-        {/* without exact the homepage will always be active-colored  */}
-        <NavLink to="/" exact activeStyle={{ color: "tomato" }}>
+        <NavLink to="/" style={activeStyle}>
           Home
         </NavLink>
       </li>
       <li>
-        {/* you can also add activeClassName={classes.active} to NavLink instead of activeStyle */}
-        <NavLink to="/summary" activeStyle={{ color: "tomato" }}>
+        <NavLink to="/summary" style={activeStyle}>
           Add Summary
         </NavLink>
       </li>
       <li>
-        <NavLink to="/favorites" activeStyle={{ color: "tomato" }}>
+        <NavLink to="/favorites" style={activeStyle}>
           Favorites
           <span className={btnPops}>{totalFav}</span>
         </NavLink>

@@ -3,9 +3,10 @@ import Header from "./components/layout/Header";
 import Home from "./pages/Home";
 import SummaryForm from "./pages/SummaryForm";
 import Favorites from "./pages/Favorites";
-import { Route, Switch } from "react-router-dom";
 import FavContextProvider from "./components/store/FavContextProvider";
 import LoginModal from "./components/layout/LoginModal";
+import { Route, Routes } from "react-router-dom";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const [modalShow, setModalShow] = useState(true);
@@ -30,19 +31,14 @@ function App() {
     <FavContextProvider>
       {modalShow && <LoginModal loginHandler={loginHandler} />}
       <Header onClick={logoutHandler} />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
+      <Routes>
+        <Route path="/" element={<Home />} />
 
-        <Route path="/summary">
-          <SummaryForm />
-        </Route>
+        <Route path="/summary" element={<SummaryForm />} />
 
-        <Route path="/favorites">
-          <Favorites />
-        </Route>
-      </Switch>
+        <Route path="/favorites" element={<Favorites />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </FavContextProvider>
   );
 }
