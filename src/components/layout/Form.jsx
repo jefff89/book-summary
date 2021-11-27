@@ -82,7 +82,7 @@ const Form = () => {
       id: values.name,
     });
 
-    history.replace("/");
+    history("/");
   };
 
   return (
